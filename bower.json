@@ -1,9 +1,8 @@
 {
   "name": "jqcron-quartz",
-  "version": "1.0.0",
   "authors": [
     "Arnaud Buathier <arnaud@arnapou.net>",
-    "Fu Cheng <alexcheng1982@gmail.com>",
+    "Fu Cheng <alexcheng1982@gmail.com>"
   ],
   "description": "Cron Quartz jQuery plugin",
   "license": "MIT",
