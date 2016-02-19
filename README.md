@@ -1,15 +1,4 @@
-jqCron
+jqCron - Quartz
 ======
 
-Cron jQuery plugin
-
-Originaly created in july 2012.
-
-Features
-========
-* multi select
-* i18n
-* custom binding with dom element (can be two ways sync for instance with input)
-* lots of options (reset button, default value, ...)
-* php class to test matching dates
-
+This is a forked version of [arnapou/jqCron](https://github.com/arnapou/jqcron) jQuery plugin using [Quartz](http://quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger) expression.

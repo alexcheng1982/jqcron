@@ -225,69 +225,77 @@ var jqCronDefaultSettings = {
 		// get cron value
 		this.getCron = function(){
 			var period = _selectorPeriod.getValue();
-			var items = ['*', '*', '*', '*', '*'];
+			var items = ['0', '*', '*', '*', '*', '*'];
+			if(period == 'minute') {
+				items[5] = '?';
+			}
 			if(period == 'hour') {
-				items[0] = _selectorMins.getCronValue();
+				items[1] = _selectorMins.getCronValue();
+				items[5] = '?';
 			}
 			if(period == 'day' || period == 'week' || period == 'month' || period == 'year') {
-				items[0] = _selectorTimeM.getCronValue();
-				items[1] = _selectorTimeH.getCronValue();
+				items[1] = _selectorTimeM.getCronValue();
+				items[2] = _selectorTimeH.getCronValue();
+				items[5] = '?';
 			}
 			if(period == 'month' || period == 'year') {
-				items[2] = _selectorDom.getCronValue();
+				items[3] = _selectorDom.getCronValue();
+				items[5] = '?';
 			}
 			if(period == 'year') {
-				items[3] = _selectorMonth.getCronValue();
+				items[4] = _selectorMonth.getCronValue();
+				items[5] = '?';
 			}
 			if(period == 'week') {
-				items[4] = _selectorDow.getCronValue();
+				items[3] = '?';
+				items[5] = _selectorDow.getCronValue();
 			}
 			return items.join(' ');
 		};
 
-		// set cron (string like * * * * *)
+		// set cron (string like * * * * * *)
 		this.setCron = function(str) {
 			if(!str) return;
 			try {
 				str = str.replace(/\s+/g, ' ').replace(/^ +/, '').replace(/ +$/, ''); // sanitize
-				var mask = str.replace(/[^\* ]/g, '-').replace(/-+/g, '-').replace(/ +/g, '');
+				var mask = str.replace(/[^\*\? ]/g, '-').replace(/-+/g, '-').replace(/ +/g, '');
 				var items = str.split(' ');
-				if (items.length != 5) _self.error(_self.getText('error2'));
-				if(mask == '*****') {						// 1 possibility
+				if (items.length != 6) _self.error(_self.getText('error2'));
+				if(mask == '-****?') {						// 1 possibility
 					_selectorPeriod.setValue('minute');
 				}
-				else if(mask == '-****') {					// 1 possibility
+				else if(mask == '--***?') {					// 1 possibility
 					_selectorPeriod.setValue('hour');
-					_selectorMins.setCronValue(items[0]);
-					_selectorTimeM.setCronValue(items[0]);
+					_selectorMins.setCronValue(items[1]);
+					_selectorTimeM.setCronValue(items[1]);
 				}
-				else if(mask.substring(2, mask.length) == '***') {			// 4 possibilities
+				else if(mask.substring(3, mask.length) == '**?') {			// 4 possibilities
 					_selectorPeriod.setValue('day');
-					_selectorMins.setCronValue(items[0]);
-					_selectorTimeM.setCronValue(items[0]);
-					_selectorTimeH.setCronValue(items[1]);
+					_selectorMins.setCronValue(items[1]);
+					_selectorTimeM.setCronValue(items[1]);
+					_selectorTimeH.setCronValue(items[2]);
 				}
-				else if(mask.substring(2, mask.length) == '-**') {			// 4 possibilities
+				else if(mask.substring(3, mask.length) == '-*?') {			// 4 possibilities
 					_selectorPeriod.setValue('month');
-					_selectorMins.setCronValue(items[0]);
-					_selectorTimeM.setCronValue(items[0]);
-					_selectorTimeH.setCronValue(items[1]);
-					_selectorDom.setCronValue(items[2]);
+					_selectorMins.setCronValue(items[1]);
+					_selectorTimeM.setCronValue(items[1]);
+					_selectorTimeH.setCronValue(items[2]);
+					_selectorDom.setCronValue(items[3]);
 				}
-				else if(mask.substring(2, mask.length) == '**-') {			// 4 possibilities
+				else if(mask.substring(3, mask.length) == '?*-') {			// 4 possibilities
 					_selectorPeriod.setValue('week');
-					_selectorMins.setCronValue(items[0]);
-					_selectorTimeM.setCronValue(items[0]);
-					_selectorTimeH.setCronValue(items[1]);
-					_selectorDow.setCronValue(items[4]);
+					_selectorMins.setCronValue(items[1]);
+					_selectorTimeM.setCronValue(items[1]);
+					_selectorTimeH.setCronValue(items[2]);
+					_selectorDow.setCronValue(items[5]);
 				}
-				else if (mask.substring(3, mask.length) == '-*') {			// 8 possibilities
+				else if (mask.substring(4, mask.length) == '-?') {			// 8 possibilities
 					_selectorPeriod.setValue('year');
-					_selectorMins.setCronValue(items[0]);
-					_selectorTimeM.setCronValue(items[0]);
-					_selectorTimeH.setCronValue(items[1]);
-					_selectorDom.setCronValue(items[2]);
-					_selectorMonth.setCronValue(items[3]);
+					_selectorMins.setCronValue(items[1]);
+					_selectorTimeM.setCronValue(items[1]);
+					_selectorTimeH.setCronValue(items[2]);
+					_selectorDom.setCronValue(items[3]);
+					_selectorMonth.setCronValue(items[4]);
 				}
 				else {
 					_self.error(_self.getText('error4'));

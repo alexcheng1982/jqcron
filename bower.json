@@ -1,11 +1,13 @@
 {
-  "name": "arnapou-jqcron",
+  "name": "jqcron-quartz",
+  "version": "1.0.0",
   "authors": [
-    "Arnaud Buathier <arnaud@arnapou.net>"
+    "Arnaud Buathier <arnaud@arnapou.net>",
+    "Fu Cheng <alexcheng1982@gmail.com>",
   ],
-  "description": "Cron jQuery plugin",
+  "description": "Cron Quartz jQuery plugin",
   "license": "MIT",
-  "homepage": "https://github.com/arnapou/jqcron",
+  "homepage": "https://github.com/alexcheng1982/jqcron",
   "ignore": [
     "*",
     "!src/*"

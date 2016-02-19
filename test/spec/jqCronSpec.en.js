@@ -11,7 +11,7 @@ describe("#Player", function() {
                 multiple_time_hours: true,
                 multiple_time_minutes: false,
                 default_period: 'week',
-                default_value: '* * * * 1',
+                default_value: '0 * * * * ?',
                 no_reset_button: true,
                 lang: 'en'
             });
@@ -19,7 +19,7 @@ describe("#Player", function() {
     });
 
     it("should translate every hour schedule correctly", function () {
-        var cronExp = "43 * * * *";
+        var cronExp = "0 43 * * * ?";
         var cronHumanTextInEnglish = "Every hour at 43 minute(s) past the hour";
 
         $('#cronexp').jqCronGetInstance().setCron(cronExp);
@@ -29,7 +29,7 @@ describe("#Player", function() {
 
 
     it("should translate every day schedule correctly", function () {
-        var cronExp = "20 5,7,10 * * *";
+        var cronExp = "0 20 5,7,10 * * ?";
         var cronHumanTextInEnglish = "Every day at 5,7,10:20";
 
         $('#cronexp').jqCronGetInstance().setCron(cronExp);
@@ -38,7 +38,7 @@ describe("#Player", function() {
     });
 
     it("should translate every week schedule correctly", function () {
-        var cronExp = "20 10 * * 1-5";
+        var cronExp = "0 20 10 ? * 1-5";
         var cronHumanTextInEnglish = "Every week on monday-friday at 10:20";
 
         $('#cronexp').jqCronGetInstance().setCron(cronExp);
@@ -47,7 +47,7 @@ describe("#Player", function() {
     });
 
     it("should translate every month schedule correctly", function () {
-        var cronExp = "52 8-9 26 * *";
+        var cronExp = "0 52 8-9 26 * ?";
         var cronHumanTextInEnglish = "Every month on 26 at 8-9:52";
 
         $('#cronexp').jqCronGetInstance().setCron(cronExp);
@@ -56,7 +56,7 @@ describe("#Player", function() {
     });
 
     it("should translate every year schedule correctly", function () {
-        var cronExp = "34 21 3 5 *";
+        var cronExp = "0 34 21 3 5 ?";
         var cronHumanTextInEnglish = "Every year on 3 of may at 21:34";
 
         $('#cronexp').jqCronGetInstance().setCron(cronExp);
